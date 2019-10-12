@@ -10,34 +10,57 @@ import java.util.List;
  * Time: 21:25
  */
 public class FileUtil {
+    private BufferedReader inputStream = null;
+    private PrintWriter outputStream = null;
 
-    public static List<String> getFileContent(String fileName){
-        List<String> list = new ArrayList<>();
+    public int initInputStream(String fileName) {
         try {
-            String str = null;
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            while ((str = reader.readLine()) != null){
-                list.add(str);
+            inputStream = new BufferedReader(new FileReader(fileName));
+            return 0;
+        } catch (FileNotFoundException e) {
+            System.out.println("打开文件失败");
+            return -1;
+        }
+    }
+
+    public int initOutputStream(String fileName) {
+        try {
+            outputStream = new PrintWriter(fileName);
+            return 0;
+        } catch (FileNotFoundException e) {
+            System.out.println("打开文件失败");
+            return -1;
+        }
+    }
+
+    public void finishInputStream() {
+        try {
+            inputStream.close();
+        } catch (IOException e) {
+            System.out.println("关闭文件失败");
+        }
+    }
+
+    public void finishOutputStream() {
+        outputStream.flush();
+        outputStream.close();
+    }
+
+    public String read(String fileName) {
+        try {
+            String data = inputStream.readLine();
+            if (data != null) {
+                return data;
+            } else {
+                return null;
             }
-            reader.close();
-            return list;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static void writeToFile(List<String> list, String fileName){
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-            for(String content : list){
-                writer.write(content, 0, content.length());
-                writer.newLine();
-            }
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void write(String data) {
+        outputStream.println(data);
     }
 }
