@@ -1,8 +1,10 @@
 package service;
 
 import data.Constant;
+import data.DataProvider;
 import data.bean.Number;
 import util.DecimalUtil;
+import util.FileUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,12 @@ public class QuestionService extends BaseService {
         int num = Integer.parseInt(args[0]);
         int max = Integer.parseInt(args[1]);
         String[] SymbolList = new String[]{ADD, SUB, MUL, DIV};
+
+        FileUtil questionFile = new FileUtil();
+        FileUtil answerFile = new FileUtil();
+        questionFile.initOutputStream("./Exercises.txt");
+        answerFile.initOutputStream("./Answers.txt");
+
 
         for (int question = 0; question < num; question++) {
             Random random = new Random();
@@ -68,8 +76,18 @@ public class QuestionService extends BaseService {
                 }
             }
             sb.append(EQU);
+            String answer = DataProvider.getAnswer(sb.toString());
+            if (answer == null) {
+                question--;
+                continue;
+            }
+            questionFile.write(question + 1 + ". " + sb.toString());
+            answerFile.write(question + 1 + ". " + answer);
             System.out.println(sb.toString());
+            System.out.println(DataProvider.getAnswer(sb.toString()));
         }
+        questionFile.finishOutputStream();
+        answerFile.finishOutputStream();
     }
 
     public QuestionService(String[] args) {

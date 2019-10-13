@@ -46,7 +46,7 @@ public class FileUtil {
         outputStream.close();
     }
 
-    public String read(String fileName) {
+    public String read() {
         try {
             String data = inputStream.readLine();
             if (data != null) {

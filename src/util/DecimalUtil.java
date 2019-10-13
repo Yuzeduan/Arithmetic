@@ -5,7 +5,7 @@ public class DecimalUtil {
         String[] strs = str.split("’");
         if (strs.length == 1) {
             String[] twoNum = strs[0].split("/");
-            return Float.valueOf(twoNum[0]) / Float.valueOf(twoNum[1]);
+            return twoNum.length == 1 ? Float.valueOf(twoNum[0]) : (Float.valueOf(twoNum[0]) / Float.valueOf(twoNum[1]));
         } else {
             String[] twoNum = strs[1].split("/");
             return Integer.valueOf(strs[0]) + Float.valueOf(twoNum[0]) / Float.valueOf(twoNum[1]);
