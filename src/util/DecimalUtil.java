@@ -14,6 +14,10 @@ public class DecimalUtil {
 
     public static String toStr(float dec) {
         String[] strs = (dec + "").split("\\.");
+        if (strs[1].length() > 6) {
+            strs[1] = strs[1].substring(0, 6);
+        }
+        if (strs[1].contains("E")) return null;
         int integer = Integer.valueOf(strs[0]);
         int decimal = Integer.valueOf(strs[1]);
         if (decimal == 0) return integer + "";

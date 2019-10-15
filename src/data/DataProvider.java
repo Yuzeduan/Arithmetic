@@ -14,14 +14,27 @@ public class DataProvider {
             int leftIndex = question.indexOf("(");
             int rightIndex = question.indexOf(")");
             String subQuestion = question.substring(leftIndex + 1, rightIndex);
-            question = question.replace("(" + subQuestion + ")", getAnswer(subQuestion));
+            if (subQuestion == null) {
+                System.out.println(1);
+            }
+            String subAnswer = getAnswer(subQuestion);
+            if (subAnswer == null) {
+                return null;
+            }
+            question = question.replace("(" + subQuestion + ")", subAnswer);
         }
         String[] preStrs = question.split(" ");
         List<String> strs = new ArrayList<>();
+        if (preStrs.length == 1) {
+            return question;
+        }
         for (int i = 1; i < preStrs.length; i += 2) {
             if (preStrs[i].equals("×")) {
                 preStrs[i + 1] = DecimalUtil.toFloat(preStrs[i - 1]) * DecimalUtil.toFloat(preStrs[i + 1]) + "";
             } else if (preStrs[i].equals("÷")) {
+                if (DecimalUtil.toFloat(preStrs[i + 1]) == 0) {
+                    return null;
+                }
                 preStrs[i + 1] = DecimalUtil.toFloat(preStrs[i - 1]) / DecimalUtil.toFloat(preStrs[i + 1]) + "";
             } else {
                 strs.add(preStrs[i - 1]);

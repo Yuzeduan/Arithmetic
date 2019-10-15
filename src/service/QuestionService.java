@@ -83,8 +83,8 @@ public class QuestionService extends BaseService {
             }
             questionFile.write(question + 1 + ". " + sb.toString());
             answerFile.write(question + 1 + ". " + answer);
-            System.out.println(sb.toString());
-            System.out.println(DataProvider.getAnswer(sb.toString()));
+//            System.out.println(sb.toString());
+//            System.out.println(DataProvider.getAnswer(sb.toString()));
         }
         questionFile.finishOutputStream();
         answerFile.finishOutputStream();
