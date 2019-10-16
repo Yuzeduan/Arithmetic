@@ -11,10 +11,8 @@ import java.util.List;
  */
 public class MAIN {
     public static void main(String[] args) {
-        String[] testSet = new String[]{"-n", "10000", "-r", "10"};
-//        String[] testSet = new String[]{"-e", "./Exercises.txt", "-a", "./Answers.txt"};
         Date before = new Date();
-        ServiceManager.getInstance(testSet).getService().handleRequest();
+        ServiceManager.getInstance(args).getService().handleRequest();
         System.out.println("生成完毕，耗时 " + (new Date().getTime() - before.getTime()) / 1000.0f + " 秒");
     }
 }

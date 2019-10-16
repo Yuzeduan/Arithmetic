@@ -25,7 +25,7 @@ public class GradeService extends BaseService {
             if (quesStrs.length == 2) {
                 String[] ansStrs = answer.split("\\. ");
                 if (ansStrs.length == 2) {
-                    System.out.println(DataProvider.getAnswer(quesStrs[1]) + " : " + ansStrs[1]);
+//                    System.out.println(DataProvider.getAnswer(quesStrs[1]) + " : " + ansStrs[1]);
                     if (DataProvider.getAnswer(quesStrs[1]).equals(ansStrs[1])) {
                         correct.add(quesStrs[0]);
                     } else {
